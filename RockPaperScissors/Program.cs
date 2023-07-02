@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+﻿
 namespace RockPaperScissors
 {
     partial class Program
@@ -80,9 +77,14 @@ namespace RockPaperScissors
             Console.WriteLine("-------------------------------------------------");
             turn--;
             Console.WriteLine("The game was completed in {0} turns", turn);
-            Console.WriteLine("The most used move was {0}", mostUsedMoves.ToArray());
 
+            var mostUsedMove = mostUsedMoves
+                .GroupBy(move => move)
+                .OrderByDescending(group => group.Count())
+                .First()
+                .Key;
 
+            Console.WriteLine("The most used move was {0}", mostUsedMove);
 
             Console.WriteLine("-------------------------------------------------");
             if (losses == 3 && wins < 3)
